@@ -77,27 +77,38 @@ namespace ConsoleApp6
             //    Console.WriteLine($"T:{i.teacher.firstName} {i.teacher.Course}");
             //}
 
-            var GroupJoin = teachers.GroupJoin(students,
-                                               teachers => teachers.Course,
-                                               students => students.Course,
-                                               (teachers,students) => new
-                                               {
-                                                   teacher = teachers,
-                                                   student = students
-                                               }).ToList();
+            //var GroupJoin = teachers.GroupJoin(students,
+            //                                   teachers => teachers.Course,
+            //                                   students => students.Course,
+            //                                   (teachers,students) => new
+            //                                   {
+            //                                       teacher = teachers,
+            //                                       student = students
+            //                                   }).ToList();
 
-            foreach (var i in GroupJoin)
-            {
-                Console.WriteLine($"Teacher: {i.teacher.firstName} {i.teacher.lastName} {i.teacher.Course}");
-                Console.WriteLine("Students: ");
-                foreach (var j in i.student)
-                {
-                    Console.WriteLine($"{j.firstName} {j.lastName} {j.Course}");
-                }
-                Console.WriteLine("------------------------------------------------------");
-            }
+            //foreach (var i in GroupJoin)
+            //{
+            //    Console.WriteLine($"Teacher: {i.teacher.firstName} {i.teacher.lastName} {i.teacher.Course}");
+            //    Console.WriteLine("Students: ");
+            //    foreach (var j in i.student)
+            //    {
+            //        Console.WriteLine($"{j.firstName} {j.lastName} {j.Course}");
+            //    }
+            //    Console.WriteLine("------------------------------------------------------");
+            //}
 
+            List<int> myInts = new List<int>() { 1, 2, 3, 3, 4, 52, 34, 52, 34, 523, 5, 234, 5, 234, 5, 234, 512, 5, 532, 15, };
 
+            int myResult = students.Aggregate<Student, int>(0, (x, y) => x += y.Age);
+
+            int myIntsResult = myInts.Aggregate((x, y) => x += y);
+
+            string stringResult = students.Aggregate<Student,string>("",(x,y) => x += y.firstName + " ");
+;
+
+            Console.WriteLine(myResult);
+            Console.WriteLine(myIntsResult);
+            Console.WriteLine(stringResult);
         }
     }
     class Student
