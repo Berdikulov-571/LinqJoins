@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp6
+﻿using Microsoft.VisualBasic;
+
+namespace ConsoleApp6
 {
     public class Program
     {
@@ -46,34 +48,56 @@
                                                 student = students
                                             }).ToList();
 
-            foreach (var i in result)
+            //foreach (var i in result)
+            //{
+            //    Console.WriteLine($"Teacher: {i.teacher.firstName} {i.teacher.lastName} {i.teacher.Course}");
+            //    foreach (var j in i.student)
+            //    {
+            //        Console.WriteLine($"{j.firstName} {j.lastName} {j.Course}");
+            //    }
+            //    Console.WriteLine();
+            //}
+
+            //Console.WriteLine("---------------------------------------------");
+
+
+
+            //var JoinResult = teachers.Join(students,
+            //                               teacher => teacher.Course,
+            //                               student => student.Course,
+            //                               (teachers,students) => new
+            //                               {
+            //                                   teacher = teachers,
+            //                                   student = students
+            //                               }).ToList();
+
+            //foreach (var i in JoinResult)
+            //{
+            //    Console.WriteLine($"S:{i.student.firstName} {i.student.Course}");
+            //    Console.WriteLine($"T:{i.teacher.firstName} {i.teacher.Course}");
+            //}
+
+            var GroupJoin = teachers.GroupJoin(students,
+                                               teachers => teachers.Course,
+                                               students => students.Course,
+                                               (teachers,students) => new
+                                               {
+                                                   teacher = teachers,
+                                                   student = students
+                                               }).ToList();
+
+            foreach (var i in GroupJoin)
             {
                 Console.WriteLine($"Teacher: {i.teacher.firstName} {i.teacher.lastName} {i.teacher.Course}");
+                Console.WriteLine("Students: ");
                 foreach (var j in i.student)
                 {
                     Console.WriteLine($"{j.firstName} {j.lastName} {j.Course}");
                 }
-                Console.WriteLine();
+                Console.WriteLine("------------------------------------------------------");
             }
 
-            Console.WriteLine("---------------------------------------------");
 
-
-
-            var JoinResult = teachers.Join(students,
-                                           teacher => teacher.Course,
-                                           student => student.Course,
-                                           (teachers,students) => new
-                                           {
-                                               teacher = teachers,
-                                               student = students
-                                           }).ToList();
-
-            foreach (var i in JoinResult)
-            {
-                Console.WriteLine($"S:{i.student.firstName} {i.student.Course}");
-                Console.WriteLine($"T:{i.teacher.firstName} {i.teacher.Course}");
-            }
         }
     }
     class Student
